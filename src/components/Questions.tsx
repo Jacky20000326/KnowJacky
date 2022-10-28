@@ -86,7 +86,7 @@ const Questions = () => {
                   }}
                   className="options-container"
                 >
-                  {i}.{item.q}
+                  {item.q}
                 </button>
               )
             )}
