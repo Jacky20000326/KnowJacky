@@ -7,7 +7,6 @@ const useCountdown = (
   setTimeHandler: any
 ) => {
   let [time, setTime] = useState<number>(0);
-  let [timeUP, setTimeUp] = useState<boolean>(true);
   useEffect(() => {
     if (!isTimeUP) {
       setTime(timer);
@@ -17,9 +16,13 @@ const useCountdown = (
   }, [isTimeUP]);
 
   useEffect(() => {
+    if (isTimeUP == true) {
+      setTime(0);
+    }
     let tineOutId = setTimeout(() => {
       if (time == 0) {
         setTimeHandler(true);
+
         return;
       }
       setTime((item) => item - 1);
