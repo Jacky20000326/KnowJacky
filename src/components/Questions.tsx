@@ -21,7 +21,7 @@ const Questions = () => {
   let { respond } = useScoreRespond(QuizContextData.score);
   const sentAns = (choose: number, ans: number) => {
     if (choose === ans) {
-      QuizContextData.setScore((item) => item + 25);
+      QuizContextData.setScore((item) => item + 10);
     }
     setShowBtn(true);
     setChoose(choose);
