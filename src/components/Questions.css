@@ -67,3 +67,21 @@
   align-items: center;
   border-radius: 50px;
 }
+
+.Complete {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.scale {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.completeRes {
+  font-size: 1.2rem;
+  color: #fff;
+}

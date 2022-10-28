@@ -45,7 +45,10 @@ const Questions = () => {
   return (
     <div className="question-container">
       {complete ? (
-        <>你的總分：{QuizContextData.score}</>
+        <div className="Complete">
+          <div className="scale">你的總分：{QuizContextData.score}</div>
+          <div className="completeRes">感謝回答，肛溫!!</div>
+        </div>
       ) : (
         <>
           <div className="question-count">
@@ -94,10 +97,12 @@ const Questions = () => {
           ) : null}
         </>
       )}
-      <div className="time-cube">
-        <div className="time-txt">倒數計時</div>
-        <div className="time">{time}</div>
-      </div>
+      {complete ? null : (
+        <div className="time-cube">
+          <div className="time-txt">倒數計時</div>
+          <div className="time">{time}</div>
+        </div>
+      )}
     </div>
   );
 };
