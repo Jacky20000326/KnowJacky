@@ -84,4 +84,6 @@
 .completeRes {
   font-size: 1.2rem;
   color: #fff;
+  padding: 30px;
+  text-align: justify;
 }

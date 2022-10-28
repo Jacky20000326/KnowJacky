@@ -3,7 +3,8 @@ import "./Questions.css";
 import data from "../topic.json";
 import { QuizContextProp } from "../Context/QuizContext";
 import ButtonStyle from "../MUI_hook/Button";
-import useCountdown from "../hook/Countdown";
+import useCountdown from "../hook/useCountdown";
+import useScoreRespond from "../hook/useScoreRespond";
 const Questions = () => {
   // state
   const [validate, setValidate] = useState<boolean>(true);
@@ -16,7 +17,8 @@ const Questions = () => {
   let QuizContextData = useContext(QuizContextProp);
   // 取得useCountdown值
   let { time, isTimeUP } = useCountdown(3, timeUPHandler, setTimeUPHandler);
-
+  // 取得分數對應的回應
+  let { respond } = useScoreRespond(QuizContextData.score);
   const sentAns = (choose: number, ans: number) => {
     if (choose === ans) {
       QuizContextData.setScore((item) => item + 25);
@@ -40,14 +42,15 @@ const Questions = () => {
   };
 
   useEffect(() => {
-    if (isTimeUP == true) sentAns(0, 0);
+    // 故意給錯的
+    if (isTimeUP == true) sentAns(0, 5);
   }, [timeUPHandler]);
   return (
     <div className="question-container">
       {complete ? (
         <div className="Complete">
-          <div className="scale">你的總分：{QuizContextData.score}</div>
-          <div className="completeRes">感謝回答，肛溫!!</div>
+          <div className="scale">你的總分：{QuizContextData.score}/100</div>
+          <div className="completeRes">{respond}</div>
         </div>
       ) : (
         <>
