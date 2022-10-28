@@ -1,15 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Questions.css";
 import data from "../topic.json";
 import { QuizContextProp } from "../Context/QuizContext";
-
+import ButtonStyle from "../MUI_hook/Button";
+import useCountdown from "../hook/Countdown";
 const Questions = () => {
   // state
   const [validate, setValidate] = useState<boolean>(true);
   const [choose, setChoose] = useState<number>(0);
   const [showBtn, setShowBtn] = useState<boolean>(false);
   const [complete, setComplete] = useState<boolean>(false);
+  // 控制計時器
+  const [timeUPHandler, setTimeUPHandler] = useState<boolean>(false);
+  //倒數計時設定開始結束
   let QuizContextData = useContext(QuizContextProp);
+  // 取得useCountdown值
+  let { time, isTimeUP } = useCountdown(3, timeUPHandler, setTimeUPHandler);
 
   const sentAns = (choose: number, ans: number) => {
     if (choose === ans) {
@@ -18,24 +24,31 @@ const Questions = () => {
     setShowBtn(true);
     setChoose(choose);
     setValidate(false);
+    // 關閉計時功能
+    setTimeUPHandler(true);
   };
 
   const NextQuestion = () => {
     QuizContextData.setCount((item) => item + 1);
     setValidate(true);
     setShowBtn(false);
+    // 啟動計時功能
+    setTimeUPHandler(false);
   };
   const completeAllQuestion = () => {
     setComplete(true);
   };
 
+  useEffect(() => {
+    if (isTimeUP == true) sentAns(0, 0);
+  }, [timeUPHandler]);
   return (
     <div className="question-container">
       {complete ? (
         <>你的總分：{QuizContextData.score}</>
       ) : (
         <>
-          <div className="questuon-count">
+          <div className="question-count">
             {QuizContextData.count}/{data.length}
           </div>
           <div className="questions">
@@ -50,15 +63,15 @@ const Questions = () => {
                   }}
                   className="options-container"
                 >
-                  {i}.{item.q}
+                  {i + 1}.{item.q}
                 </button>
               ) : (
                 <button
                   style={
                     data[QuizContextData.count - 1].answer == item.id
-                      ? { backgroundColor: "green" }
+                      ? { backgroundColor: "#496e59", color: "#fff" }
                       : choose !== data[QuizContextData.count - 1].answer
-                      ? { backgroundColor: "red" }
+                      ? { backgroundColor: "red", color: "#fff" }
                       : { backgroundColor: "#fff" }
                   }
                   disabled
@@ -74,27 +87,17 @@ const Questions = () => {
           </div>
           {showBtn ? (
             QuizContextData.count == data.length ? (
-              <button
-                onClick={() => {
-                  completeAllQuestion();
-                }}
-                className="btn"
-              >
-                完成
-              </button>
+              <ButtonStyle handler={completeAllQuestion}>完成</ButtonStyle>
             ) : (
-              <button
-                onClick={() => {
-                  NextQuestion();
-                }}
-                className="btn"
-              >
-                Next
-              </button>
+              <ButtonStyle handler={NextQuestion}>下一題</ButtonStyle>
             )
           ) : null}
         </>
       )}
+      <div className="time-cube">
+        <div className="time-txt">倒數計時</div>
+        <div className="time">{time}</div>
+      </div>
     </div>
   );
 };

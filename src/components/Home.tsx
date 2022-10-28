@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import "./Home.css";
-import "bulma/css/bulma.min.css";
+// import "bulma/css/bulma.min.css";
 import { QuizContextProp } from "../Context/QuizContext";
 import TextField from "@mui/material/TextField";
-// import Button from "@mui/material/Button";
-import Button from "@mui/material/Button";
+
+import ButtonStyle from "../MUI_hook/Button";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
+
 const Home = () => {
   // 取得填入姓名狀態
   const getNameState = useContext(QuizContextProp);
@@ -20,40 +21,30 @@ const Home = () => {
       return;
     }
     setInputRes((item) => (item = "寫一下名字拉！！"));
-    console.log(inputRes);
   };
 
   return (
     <div className="Home-container">
+      <div className="logo-cube">
+        <img src={require("../image/logo.jpg")} alt="" />
+      </div>
       <div className="Home-title">先幫我留下大名吧，好認我之後感謝你</div>
-      <TextField
+      <input
         value={name}
+        placeholder={inputRes}
         onChange={(e) => {
           setName((item) => (item = e.target.value));
         }}
-        id="standard-basic"
-        label="Standard"
-        variant="standard"
       />
-      <Button
-        variant="contained"
-        sx={{
-          color: "#fff",
-          backgroundColor: "#555555",
-          borderColor: "#000",
-          marginTop: "30px",
-        }}
-        onClick={() => {
-          getUserName();
-        }}
-      >
-        Contained
-      </Button>
-      <Grid className="alertStyle" container>
+      <div>
+        <ButtonStyle handler={getUserName}>開始!!!</ButtonStyle>
+      </div>
+
+      {/* <Grid className="alertStyle" container>
         <Grid item xs={12}>
           <Alert severity="error">想都別想，給我填！！</Alert>
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
