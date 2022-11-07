@@ -2,11 +2,8 @@ import React, { useState, useContext } from "react";
 import "./Home.css";
 // import "bulma/css/bulma.min.css";
 import { QuizContextProp } from "../Context/QuizContext";
-import TextField from "@mui/material/TextField";
 
 import ButtonStyle from "../MUI_hook/Button";
-import Alert from "@mui/material/Alert";
-import Grid from "@mui/material/Grid";
 
 const Home = () => {
   // 取得填入姓名狀態
@@ -18,6 +15,7 @@ const Home = () => {
   const getUserName = () => {
     if (name) {
       getNameState.setFillOutName(true);
+      getNameState.setName(name);
       return;
     }
     setInputRes((item) => (item = "寫一下名字拉！！"));
@@ -39,12 +37,6 @@ const Home = () => {
       <div>
         <ButtonStyle handler={getUserName}>開始!!!</ButtonStyle>
       </div>
-
-      {/* <Grid className="alertStyle" container>
-        <Grid item xs={12}>
-          <Alert severity="error">想都別想，給我填！！</Alert>
-        </Grid>
-      </Grid> */}
     </div>
   );
 };
