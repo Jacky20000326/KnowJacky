@@ -154,26 +154,26 @@
         "answer": 1
     },
     {
-        "question": "Jacky最喜歡得歌手",
+        "question": "全世界只有一部動畫不能消失是哪一下部",
         "options": [
             {
-                "q": "林俊傑",
+                "q": "鬼滅之刃",
                 "id": 1
             },
             {
-                "q": "周杰倫",
+                "q": "咒術回戰",
                 "id": 2
             },
             {
-                "q": "J.Sheon",
+                "q": "火影忍者",
                 "id": 3
             },
             {
-                "q": "OZI",
+                "q": "航海王",
                 "id": 4
             }
         ],
-        "answer": 1
+        "answer": 3
     }, {
         "question": "Jacky最喜歡的調酒",
         "options": [
